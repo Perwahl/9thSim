@@ -1,0 +1,37 @@
+.sneaky-unit .combatant {
+    background-color: #64b46b;
+  }
+  
+  .clompy-unit .combatant {
+    background-color: #9e5340;
+  }
+  
+  .combatant {
+    border: 2px solid black;
+    /*border-bottom: none;*/
+  }
+  
+  .combatant:last-child {
+    border-bottom: solid black;
+  }
+  
+  .combatant-Infantry20x20 {
+    height: 40px;
+    width: 40px;
+  }
+  
+  .combatant-Infantry25x25 {
+    height: 50px;
+    width: 50px;
+  }  
+  
+  .combatant-Cavalry25x50 {
+    height: 50px;
+    width: 100px;
+  }
+  
+  .modelgrid {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+  }  

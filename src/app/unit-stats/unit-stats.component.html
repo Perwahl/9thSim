@@ -1,0 +1,74 @@
+<!--<div class=“container”>-->
+<div class="row">
+    <div class="col-sm-12">
+        <p *ngIf="!unitProps"><em>Loading...</em></p>
+
+        <table class='table' *ngIf="unitProps && unitIdentifier">
+            <thead>
+                <tr>
+                    <th>Unit {{unitIdentifier}}</th>
+                    <th>HP</th>
+                    <th>Def</th>
+                    <th>Res</th>
+                    <th>Arm</th>
+                    <th>Att</th>
+                    <th>Off</th>
+                    <th>Str</th>
+                    <th>AP</th>
+                    <th>Agi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ unitProps.unitType.name }}</td>
+                    <td>{{ unitProps.unitType.hp }}</td>
+                    <td>{{ unitProps.unitType.def }}</td>
+                    <td>{{ unitProps.unitType.res }}</td>
+                    <td>{{ unitProps.unitType.arm }}</td>
+                    <td>{{ unitProps.unitType.att }}</td>
+                    <td>{{ unitProps.unitType.off }}</td>
+                    <td>{{ unitProps.unitType.str }}</td>
+                    <td>{{ unitProps.unitType.ap }}</td>
+                    <td>{{ unitProps.unitType.agi }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row" *ngIf="unitProps">
+    <div class="col-sm-6">
+        <label class="d-block" for="inputEmail4">Selected Unit</label>
+        <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1"
+                ngbDropdownToggle>{{unitProps.unitType.name}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button *ngFor="let unitStat of unitStats" (click)="onUnitSelect(unitStat)"
+                    class="dropdown-item">{{ unitStat.name }}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-3">
+        <label class="d-block" for="inputUnitSize">Model Count</label>
+        <input type="number" class="form-control" placeholder="size" aria-label="size" aria-describedby="basic-addon1"
+            id="inputUnitSize" [(ngModel)]="unitProps.modelCount" (input)="unitChange()">
+    </div>
+
+    <div class="form-group col-md-3">
+        <label for="unit">Unit Width</label>
+        <input type="number" class="form-control" placeholder="width" aria-label="Unit Size" aria-describedby=""
+            [(ngModel)]="unitProps.unitWidth" (input)="unitChange()">
+    </div>
+</div>
+
+<div class="row justify-content-center align-items-center" *ngIf="unitProps">
+    <div class="col-md-12 pants">
+        <button type="button" *ngFor="let attribute of unitProps.attributes"
+            [className]="'btn btn-primary btn-sm attribute attribute-' + attribute.type + ' attribute-' + attribute.active"
+            (click)="onToggleAttribute(attribute, unitIdentifier)">
+            {{attribute.name}}
+        </button>
+    </div>
+</div>
+<!--</div>-->

@@ -1,0 +1,25 @@
+<!-- Combat round select buttons -->
+<!-- <div class="row justify-content-center form-group mt-3"> -->
+<div class="row form-group mt-3">
+    <div class="btn-group-toggle" role="group" aria-label="Basic example" data-toggle="buttons">        
+        <button *ngIf="combatTurnData[0].resultCount > 0" type="button" (click)="onCombatTurnSelect(0)" class="btn btn-secondary">Turn 1</button>
+        <button *ngIf="combatTurnData[1].resultCount > 0" type="button" (click)="onCombatTurnSelect(1)" class="btn btn-secondary">Turn 2</button>
+        <button *ngIf="combatTurnData[2].resultCount > 0" type="button" (click)="onCombatTurnSelect(2)" class="btn btn-secondary">Turn 3</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-10 pants">
+        <div [ngStyle]="turnOutcomeBlocks(0)" style="background-color: antiquewhite; height:30px;"></div>
+        <div [ngStyle]="turnOutcomeBlocks(1)" style="background-color: antiquewhite; height:30px;"></div>
+        <div [ngStyle]="turnOutcomeBlocks(2)" style="background-color: antiquewhite; height:30px;"></div>
+        <br>
+        <!-- <b>{{killRangeRounded(killRange)}}</b>  -->
+    </div>
+</div>
+
+Average Kills: {{formatNumber(combatTurnData[selectedTurn].averageKills)}}
+<br>
+Average Losses: {{formatNumber(combatTurnData[selectedTurn].averageLosses)}}
+
+

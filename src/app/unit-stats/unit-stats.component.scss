@@ -1,0 +1,43 @@
+.attribute {
+    height: 30px;    
+    font-size: 12px;
+   // padding-top: 3px;
+    border-block-width: 3px;
+    line-height: 1;
+    margin-right: 1px;
+  } 
+    
+  .attribute-0 {
+      background-color: rgb(158, 80, 93);   
+  }
+
+  .attribute-1 {
+    background-color: rgb(103, 140, 155);   
+}
+
+.attribute-2 {
+    background-color: rgb(156, 223, 223);   
+}
+
+.attribute-3 {
+    background-color: rgb(173, 89, 152);   
+}
+
+.attribute-true{
+    border-color: #1af84e;
+}
+
+.attribute-false{
+    border-color: #ffffff;
+    border-block-width: 3px;
+}
+
+.pants div {
+    display: inline-block;
+  }
+
+  .btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
+

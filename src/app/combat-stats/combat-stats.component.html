@@ -1,0 +1,25 @@
+<div> Combat Results: {{combatData.resultCount}} </div>
+
+<!-- <div> enemyBroken: {{combatData.enemyBreaks}} </div>
+<div> test unit broken: {{combatData.unitBreaks}} </div>
+<div> stalemates: {{combatData.stalemate}} </div> -->
+
+  <div class="row">
+      <div class="col-sm-10 pants">
+        <div [ngStyle]="combatOutcomeBlocks(0)" style="background-color: antiquewhite; height:30px;"></div>
+        <div [ngStyle]="combatOutcomeBlocks(1)" style="background-color: antiquewhite; height:30px;"></div>
+        <div [ngStyle]="combatOutcomeBlocks(2)" style="background-color: antiquewhite; height:30px;"></div>          
+          <br>
+           <!-- <b>{{killRangeRounded(killRange)}}</b>  -->
+        </div>
+      
+ </div>
+
+<!-- <div class="card" style="width: 8rem;">
+    <div class="card-header">
+      <b>Median Kills</b>
+    </div>
+    <ul class="list-group list-group-flush" style="text-align: center">
+      <li class="list-group-item" style="font-size : 30px ">  10  </li>
+    </ul>
+  </div> -->

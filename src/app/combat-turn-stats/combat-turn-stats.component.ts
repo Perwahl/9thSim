@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CombatTurnData } from '../model';
+import { CombatTurnData, RenderUnit } from '../model';
 
 @Component({
   selector: 'app-combat-turn-stats',
@@ -9,17 +9,19 @@ import { CombatTurnData } from '../model';
 export class CombatTurnStatsComponent implements OnInit {
 
   @Input() public combatTurnData: CombatTurnData[];
+  @Input() unitOneRender: RenderUnit;
+  @Input() unitTwoRender: RenderUnit;
   selectedTurn: number = 0;
 
   constructor() { }
 
   ngOnInit() {
+    this.combatTurnData = [new CombatTurnData, new CombatTurnData, new CombatTurnData];
   }
 
   onCombatTurnSelect(turnNumber: number) {
     this.selectedTurn = turnNumber;
   }
-
 
   turnOutcomeBlocks(outcome: number) {
     const colors = {
@@ -34,7 +36,19 @@ export class CombatTurnStatsComponent implements OnInit {
       1: 'stalemate'
     };
 
-    const width = (this.combatTurnData[this.selectedTurn][type[outcome]] / this.combatTurnData[this.selectedTurn].resultCount) * 90;
+    let widthMod = 0;
+    if(outcome === 0){
+      widthMod = this.combatTurnData[this.selectedTurn].breakChance[0];
+    }
+    else if(outcome == 2){
+      widthMod = this.combatTurnData[this.selectedTurn].breakChance[1];
+    }
+    else if(outcome == 1){
+      widthMod = 1-(this.combatTurnData[this.selectedTurn].breakChance[1]+this.combatTurnData[this.selectedTurn].breakChance[0]);
+    }
+
+    //const width = (this.combatTurnData[this.selectedTurn][type[outcome]] / this.combatTurnData[this.selectedTurn].resultCount) * 90;
+    const width =  widthMod * 90;
     const minWidth = Math.max(width, 3);
 
     console.log();
@@ -60,8 +74,10 @@ export class CombatTurnStatsComponent implements OnInit {
   }
 
   formatNumber(i: number) {
-    return Math.round(i * 10)/10; 
+    return Math.round(i * 100)/100; 
   }
 
-
+  formatNumber2(i: number) {
+    return Math.round(i*100); 
+  }
 }

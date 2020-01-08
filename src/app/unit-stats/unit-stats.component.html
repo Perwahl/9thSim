@@ -43,8 +43,19 @@
             <button class="btn btn-outline-primary" id="dropdownBasic1"
                 ngbDropdownToggle>{{unitProps.unitType.name}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button *ngFor="let unitStat of unitStats" (click)="onUnitSelect(unitStat)"
+
+                <button  class="dropdown-item label"> Dread Elves </button>
+                <button *ngFor="let unitStat of unitStats[0]" (click)="onUnitSelect(unitStat)"
                     class="dropdown-item">{{ unitStat.name }}</button>
+
+                    <button  class="dropdown-item label"> Orcs & Goblins </button>
+                <button *ngFor="let unitStat of unitStats[1]" (click)="onUnitSelect(unitStat)"
+                    class="dropdown-item">{{ unitStat.name }}</button>
+
+                    <button  class="dropdown-item label"> Empire </button>
+                <button *ngFor="let unitStat of unitStats[2]" (click)="onUnitSelect(unitStat)"
+                    class="dropdown-item">{{ unitStat.name }}</button>
+
             </div>
         </div>
     </div>
@@ -52,18 +63,18 @@
     <div class="form-group col-md-3">
         <label class="d-block" for="inputUnitSize">Model Count</label>
         <input type="number" class="form-control" placeholder="size" aria-label="size" aria-describedby="basic-addon1"
-            id="inputUnitSize" [(ngModel)]="unitProps.modelCount" (input)="unitChange()">
+            id="inputUnitSize" [(ngModel)]="unitProps.modelCount" (input)="unitChange()" min="1">
     </div>
 
     <div class="form-group col-md-3">
         <label for="unit">Unit Width</label>
         <input type="number" class="form-control" placeholder="width" aria-label="Unit Size" aria-describedby=""
-            [(ngModel)]="unitProps.unitWidth" (input)="unitChange()">
+            [(ngModel)]="unitProps.unitWidth" (input)="unitChange()" min="1">
     </div>
 </div>
 
-<div class="row justify-content-center align-items-center" *ngIf="unitProps">
-    <div class="col-md-12 pants">
+<div class="row justify-content-center align-items-center "  *ngIf="unitProps" >
+    <div class="col-md-12 pants text-center">
         <button type="button" *ngFor="let attribute of unitProps.attributes"
             [className]="'btn btn-primary btn-sm attribute attribute-' + attribute.type + ' attribute-' + attribute.active"
             (click)="onToggleAttribute(attribute, unitIdentifier)">

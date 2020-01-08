@@ -1,25 +1,40 @@
 <!-- Combat round select buttons -->
-<!-- <div class="row justify-content-center form-group mt-3"> -->
-<div class="row form-group mt-3">
-    <div class="btn-group-toggle" role="group" aria-label="Basic example" data-toggle="buttons">        
-        <button *ngIf="combatTurnData[0].resultCount > 0" type="button" (click)="onCombatTurnSelect(0)" class="btn btn-secondary">Turn 1</button>
-        <button *ngIf="combatTurnData[1].resultCount > 0" type="button" (click)="onCombatTurnSelect(1)" class="btn btn-secondary">Turn 2</button>
-        <button *ngIf="combatTurnData[2].resultCount > 0" type="button" (click)="onCombatTurnSelect(2)" class="btn btn-secondary">Turn 3</button>
+<div class="row justify-content-center form-group mt-3">
+    <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="selectedTurn">
+        <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="0" [disabled]="combatTurnData[0].resultCount == 0"> Turn 1
+        </label>
+        <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="1" [disabled]="combatTurnData[1].resultCount == 0"> Turn 2
+        </label>
+        <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="2" [disabled]="combatTurnData[2].resultCount == 0"> Turn 3
+        </label>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-10 pants">
+<div class="row justify-content-center">
+    <div>Chance to break/kill Opponent: {{(formatNumber2(combatTurnData[selectedTurn].breakChance[0]))}}% </div>
+    <div class="col-sm-6 pants text-center">
         <div [ngStyle]="turnOutcomeBlocks(0)" style="background-color: antiquewhite; height:30px;"></div>
         <div [ngStyle]="turnOutcomeBlocks(1)" style="background-color: antiquewhite; height:30px;"></div>
         <div [ngStyle]="turnOutcomeBlocks(2)" style="background-color: antiquewhite; height:30px;"></div>
-        <br>
-        <!-- <b>{{killRangeRounded(killRange)}}</b>  -->
+        <br>       
     </div>
+    <div>Chance to break/kill Opponent: {{(formatNumber2(combatTurnData[selectedTurn].breakChance[1]))}}%  </div>
 </div>
 
-Average Kills: {{formatNumber(combatTurnData[selectedTurn].averageKills)}}
-<br>
-Average Losses: {{formatNumber(combatTurnData[selectedTurn].averageLosses)}}
-
-
+<div class="row">
+    <div class="col-sm-2 pants text-center">
+       Average Kills: {{formatNumber(combatTurnData[selectedTurn].averageKills[0])}}
+        <br>       
+    </div>
+    <div class="col-sm-8 pants">
+        <app-battle-field [unitOne]=unitOneRender [unitTwo]="unitTwoRender" [selectedTurn]="selectedTurn">
+        </app-battle-field>
+    </div>
+    <div class="col-sm-2 pants text-center">
+            Average Kills: {{formatNumber(combatTurnData[selectedTurn].averageKills[1])}}
+        <br>        
+    </div>
+</div>

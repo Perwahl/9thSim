@@ -1,4 +1,4 @@
-import { UnitState, CombatOutcome, CombatTurnResult, baseWidthDictionary } from './model';
+import { UnitState, CombatOutcome, CombatTurnResult, baseWidthDictionary, CombatResult } from './model';
 import { registerLocaleData } from '@angular/common';
 import { UnitStat } from './data-units';
 
@@ -6,23 +6,36 @@ export class CombatHelpers {
 
     combatLog: boolean = false;
 
-    public calculateCombatTurn(units: UnitState[], turn: number, ) {
-
-        const combatTurn: CombatTurnResult = new CombatTurnResult();
-        combatTurn.kills = [0, 0];
+    public calculateCombatTurn(units: UnitState[], turn: number, combat : CombatResult) {
+        
+        const combatTurn: CombatTurnResult = new CombatTurnResult();    
+        
+        if(turn === 1){
+            combatTurn.kills = [0, 0];
+        combatTurn.hits = [0, 0];
+        combatTurn.wounds = [0, 0];
+        combatTurn.armorSaves = [0, 0];
+        }
+        else{
+        combatTurn.kills = [combat.turnResults[turn-2].kills[0], combat.turnResults[turn-2].kills[1]];
+        combatTurn.hits = [combat.turnResults[turn-2].hits[0], combat.turnResults[turn-2].hits[1]];
+        combatTurn.wounds = [combat.turnResults[turn-2].wounds[0], combat.turnResults[turn-2].wounds[1]];
+        combatTurn.armorSaves = [combat.turnResults[turn-2].armorSaves[0], combat.turnResults[turn-2].armorSaves[1]];
+        }   
+        
         units[0].remainingModels[turn] = units[0].remainingModels[turn - 1];
         units[1].remainingModels[turn] = units[1].remainingModels[turn - 1];
         if (this.combatLog) console.log("starting a combat round. remaining models " + units[0].remainingModels[turn]);
 
         //run through the AGI steps
-        for (let i = 10; i > 0; i--) {
+        for (let i = 10; i >= 0; i--) {
             if (this.agilityWithMods(units[0]) === i) {
                 if (this.combatLog) console.log("unit 1 attacking");
-                combatTurn.kills[0] = this.attackRound(units[0], units[1], turn);
+                this.attackRound(units[0], units[1], combatTurn, 0, turn);
             }
             if (this.agilityWithMods(units[1]) === i) {
                 if (this.combatLog) console.log("unit 2 attacking");
-                combatTurn.kills[1] = this.attackRound(units[1], units[0], turn);
+                this.attackRound(units[1], units[0], combatTurn, 1, turn );
             }
             //update remaining models
             if (units[0].unitType.agi === i) {
@@ -34,14 +47,19 @@ export class CombatHelpers {
         }
 
         //check if any unit is wiped out
-        if (units[0].remainingModels[turn] < 1) {
+        if (units[0].remainingModels[turn] < 1 && units[1].remainingModels[turn] < 1) {
+            combatTurn.outcome = CombatOutcome.bothWipedOut;
+            return combatTurn;
+        }
+        else if (units[0].remainingModels[turn] < 1) {
             combatTurn.outcome = CombatOutcome.wipedOut;
             return combatTurn;
         }
-        if (units[1].remainingModels[turn] < 1) {
+        else if (units[1].remainingModels[turn] < 1) {
             combatTurn.outcome = CombatOutcome.enemyWipedOut;
             return combatTurn;
         }
+        
         combatTurn.outcome = this.breakTest(units, combatTurn.kills, turn);
 
         return combatTurn;
@@ -98,17 +116,14 @@ export class CombatHelpers {
         return Math.min(Math.max(Math.floor(unit.remainingModels[turn] / unit.unitWidth) - 1, 0), 3);
     }
 
-    attackRound(attackingUnit: UnitState, defendingUnit: UnitState, turn: number) {
-        const toHit = this.toHitChance(attackingUnit.unitType.off, defendingUnit.unitType.def);
-
-        const toWound = this.toWoundChance(attackingUnit.unitType.str, defendingUnit.unitType.res);
-        const armorSave = this.armorSaveChance(attackingUnit, defendingUnit);
+    attackRound(attackingUnit: UnitState, defendingUnit: UnitState, result : CombatTurnResult, unit : number, turn : number) {
 
         const attackingModels = this.attackingModels(attackingUnit, defendingUnit, turn);
-        if (this.combatLog) console.log("attacking models: " + attackingModels);
+        if (this.combatLog) console.log("attacking models in front rank: " + attackingModels);
         const attacks = (attackingModels * (attackingUnit.unitType.att + attackingUnit.modifiers.extraAttacks)) + (this.supportingAttacks(attackingUnit, attackingModels, turn, (1 + attackingUnit.modifiers.fightInExtraRank)));
-        if (this.combatLog) console.log("total attacks: " + attacks);
+        if (this.combatLog) console.log("total attacks with supporting ranks: " + attacks);        
 
+        const toHit = this.toHitChance(attackingUnit.unitType.off, defendingUnit.unitType.def);
         const hits = this.d6Roll(attacks, this.ToHitBonuses(toHit, attackingUnit), false);
 
         let wounds = 0;
@@ -122,24 +137,33 @@ export class CombatHelpers {
             hits.hits -= sixes;
             wounds+=sixes
         }
-        if (this.combatLog) console.log("hits: " + hits)
+        if (this.combatLog) console.log("hits: " + hits.hits)
+
+        const toWound = this.toWoundChance((attackingUnit.unitType.str + attackingUnit.modifiers.strengthMod), defendingUnit.unitType.res);
         wounds += this.d6Roll(hits.hits, toWound, attackingUnit.modifiers.toWoundRerollOnes).hits;
         if (this.combatLog) console.log("wounds: " + wounds)
 
+        const armorSave = this.armorSaveChance(attackingUnit, defendingUnit);
         const saves = this.d6Roll(wounds, armorSave, false).hits;
         if (this.combatLog) console.log("armor saves: " + saves)
 
         const kills = wounds - saves;
         //console.log("kills " + kills);
-        return kills;
+        result.hits[unit] += hits.hits;
+        result.wounds[unit] += wounds;
+        result.armorSaves[1-unit] += saves;
+        result.kills[unit] += kills;
     }
     ToHitBonuses(toHitBase: number, attackingUnit: UnitState) {
-        let actualToHit = toHitBase + attackingUnit.modifiers.toHitMods;
+        let actualToHit = toHitBase - attackingUnit.modifiers.toHitMods;
 
         if (attackingUnit.modifiers.lightningReflexes && !attackingUnit.modifiers.greatWeapon) {
-            actualToHit++;
+            actualToHit--;
         }
-        return Math.min(Math.max(actualToHit, 6), 1);
+        const hit = Math.max(Math.min(actualToHit, 6), 1);
+
+        if (this.combatLog) console.log("to hit after bonuses " + hit);
+        return hit
     }
 
     d6Roll(dice: number, success: number, rerollOnes: boolean) {

@@ -1,17 +1,23 @@
 <!--<p>battle-field works!</p>-->
 
 <div class="battlefield">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-xs-6 align-self-center">
-        <div class="sneaky-unit" [ngStyle]="paintMyButt(1)" *ngIf="unitOne">
-          <div *ngFor="let combatant of unitOne.models" [className]="'combatant combatant-' + combatant.type" [ngStyle]="{'grid-column': combatant.rank, 'grid-row': combatant.file}"></div>
+  <div class="row justify-content-center align-items-center">
+    <div class="col-xs-6 align-self-center">
+      <div class="sneaky-unit" [ngStyle]="paintMyButt(1)" *ngIf="unitOne">
+        <div *ngFor="let combatant of unitOne.models" [className]="'combatant combatant-' + combatant.type"
+          [ngStyle]="{'grid-column': combatant.rank, 'grid-row': combatant.file}">
+          <img width='35' alt="skull" src="assets\crossbone.svg" *ngIf="combatant.dead[selectedTurn]">         
         </div>
       </div>
+    </div>
 
-      <div class="col-xs-6">
-        <div class="clompy-unit" [ngStyle]="paintMyButt(2)" *ngIf="unitTwo">
-          <div *ngFor="let combatant of unitTwo.models" [className]="'combatant combatant-' + combatant.type" [ngStyle]="{'grid-column': combatant.rank, 'grid-row': combatant.file}"></div>
+    <div class="col-xs-6">
+      <div class="clompy-unit" [ngStyle]="paintMyButt(2)" *ngIf="unitTwo">
+        <div *ngFor="let combatant of unitTwo.models" [className]="'combatant combatant-' + combatant.type"
+          [ngStyle]="{'grid-column': combatant.rank, 'grid-row': combatant.file}">
+          <img width='35' alt="skull" src="assets\crossbone.svg" *ngIf="combatant.dead[selectedTurn]"> 
         </div>
       </div>
     </div>
   </div>
+</div>

@@ -10,9 +10,10 @@ export class BattleFieldComponent implements OnInit {
 
   @Input() unitOne: RenderUnit;
   @Input() unitTwo: RenderUnit;
+  @Input() selectedTurn: number;
 
   constructor() {
-     // console.log(this.unitOne);
+    // console.log(this.unitOne);
    }
 
   paintMyButt(unitNumber: number) {

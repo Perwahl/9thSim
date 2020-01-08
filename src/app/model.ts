@@ -21,26 +21,40 @@ export class CombatResult {
 
 export class CombatTurnResult {
     kills: number[];
+    hits: number[];
+    wounds: number[];
+    armorSaves: number[];
     outcome: CombatOutcome;
+    totalKills: number[];
     constructor() {
     }
 }
 
 export class CombatTurnData {
     resultCount: number;
-    averageKills: number;
-    averageLosses: number;
     enemyBreaks: number;
     unitBreaks: number;
     stalemate: number;
 
+    breakChance: number[];
+
+    averageKills: number[];
+    averageKillsTotal: number[];
+    averageHits: number[];
+    averageWounds: number[];
+    enemyAverageArmorSaves: number[];
+
     constructor() {
-        this.averageKills = 0,
-            this.averageLosses = 0,
-            this.enemyBreaks = 0,
+        this.enemyBreaks = 0,
             this.unitBreaks = 0,
             this.stalemate = 0,
-            this.resultCount=0
+            this.resultCount = 0,
+            this.averageKills = [0, 0],
+            this.averageHits = [0, 0],
+            this.averageWounds = [0, 0],
+            this.enemyAverageArmorSaves = [0, 0],
+            this.averageKillsTotal = [0, 0],
+            this.breakChance = [0, 0];
     }
 }
 
@@ -62,6 +76,7 @@ export enum CombatOutcome {
     broken,
     enemyWipedOut,
     wipedOut,
+    bothWipedOut,
     hold,
 }
 
@@ -69,7 +84,7 @@ export class RenderModel {
     type: string;
     rank: number;
     file: number;
-    dead: boolean;
+    dead: boolean[];
 }
 
 export class RenderUnit {

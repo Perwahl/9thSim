@@ -1,6 +1,18 @@
 
 export enum ModelAttributeName {
-    'light_armor', 'shield', 'spear', 'killer_instinct', 'paired_weapons', 'lightning_reflexes', 'poison_attacks'
+    'light_armor',
+    'shield',
+    'spear',
+    'killer_instinct',
+    'paired_weapons',
+    'lightning_reflexes',
+    'poison_attacks',
+    'heavy_armor',
+    'halberd',
+    'fearless',
+    'fear',
+    'great_weapon',
+    'plate_armor'
 }
 
 export enum AttributeType {
@@ -112,5 +124,40 @@ export const Attributes = {
             mods.greatWeapon=true;
         }
     },
-
+    'heavy_armor': {
+        name: 'Heavy Armor',
+        type: AttributeType.armor,
+        effect: function effect(mods: AttributeModifiers) {
+            mods.armorBonus += 2;
+        }
+    },
+    'plate_armor': {
+        name: 'Plate Armor',
+        type: AttributeType.armor,
+        effect: function effect(mods: AttributeModifiers) {
+            mods.armorBonus += 3;
+        }
+    },
+    'halberd': {
+        name: 'Halberd',
+        type: AttributeType.armor,
+        effect: function effect(mods: AttributeModifiers) {
+            mods.strengthMod += 1;
+            mods.armorPenetration+=1;
+        }
+    },
+    'fear': {
+        name: 'Fear',
+        type: AttributeType.armor,
+        effect: function effect(mods: AttributeModifiers) {
+            console.log("Not Implemented");
+        }
+    },
+    'fearless': {
+        name: 'Fearless',
+        type: AttributeType.armor,
+        effect: function effect(mods: AttributeModifiers) {
+           console.log("Not Implemented");
+        }
+    },
 }

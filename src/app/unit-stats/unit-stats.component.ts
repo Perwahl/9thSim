@@ -11,7 +11,7 @@ import { PropertyRead } from '@angular/compiler';
 })
 export class UnitStatsComponent implements OnInit {
 
-  @Input() public unitStats: UnitStat[];
+  @Input() public unitStats: Array<UnitStat>[];
   @Input() unitIdentifier: number;
 
   @Input() unitProps: UnitState;

@@ -12,7 +12,9 @@ export enum ModelAttributeName {
     'fearless',
     'fear',
     'great_weapon',
-    'plate_armor'
+    'plate_armor',
+    'nets',
+    'standard_bearer'
 }
 
 export enum AttributeType {
@@ -42,6 +44,11 @@ export class AttributeModifiers {
     chargedAgilityBonus: number;
     greatWeapon: boolean;
     toHitMods: number;
+    combatResolutionBonus: number;
+    canParry: boolean;
+    hasShield: boolean;
+    hasPairedWeapon: boolean;
+    hasNets: boolean;
 
     constructor() {
         this.armorBonus = 0;
@@ -57,6 +64,11 @@ export class AttributeModifiers {
         this.agilityMod=0;
         this.greatWeapon=false;
         this.toHitMods=0;
+        this.combatResolutionBonus=0;
+        this.hasShield=false;
+        this.canParry=true;
+        this.hasPairedWeapon=false;
+        this.hasNets=false;
     }
 }
 
@@ -75,6 +87,7 @@ export const Attributes = {
         type: AttributeType.equipment,
         effect: function effect(mods: AttributeModifiers) {
             mods.armorBonus += 1;
+            mods.hasShield =true;
         }
     },
 
@@ -84,6 +97,7 @@ export const Attributes = {
         effect: function effect(mods: AttributeModifiers) {
             mods.armorPenetration += 1;
             mods.fightInExtraRank += 1;
+            mods.canParry =false;
         }
     },
 
@@ -98,7 +112,9 @@ export const Attributes = {
         name: "Paired Weapons",
         type: AttributeType.weapon,
         effect: function effect(mods: AttributeModifiers) {
-            mods.extraAttacks += 1;           
+            mods.extraAttacks += 1;
+            mods.canParry =false;
+            mods.hasPairedWeapon =true;
         }
     },
     'lightning_reflexes': {
@@ -122,6 +138,7 @@ export const Attributes = {
             mods.strengthMod+=2;
             mods.armorPenetration+=2;
             mods.greatWeapon=true;
+            mods.canParry =false;
         }
     },
     'heavy_armor': {
@@ -140,24 +157,39 @@ export const Attributes = {
     },
     'halberd': {
         name: 'Halberd',
-        type: AttributeType.armor,
+        type: AttributeType.weapon,
         effect: function effect(mods: AttributeModifiers) {
             mods.strengthMod += 1;
             mods.armorPenetration+=1;
+            mods.canParry =false;
         }
     },
     'fear': {
         name: 'Fear',
-        type: AttributeType.armor,
+        type: AttributeType.special_rule,
         effect: function effect(mods: AttributeModifiers) {
             console.log("Not Implemented");
         }
     },
     'fearless': {
         name: 'Fearless',
-        type: AttributeType.armor,
+        type: AttributeType.special_rule,
         effect: function effect(mods: AttributeModifiers) {
            console.log("Not Implemented");
+        }
+    },
+    'nets': {
+        name: 'Nets',
+        type: AttributeType.special_rule,
+        effect: function effect(mods: AttributeModifiers) {
+           mods.hasNets = true;
+        }
+    },
+    'standard_bearer': {
+        name: 'Standard Bearer',
+        type: AttributeType.special_rule,
+        effect: function effect(mods: AttributeModifiers) {
+           mods.combatResolutionBonus++;
         }
     },
 }

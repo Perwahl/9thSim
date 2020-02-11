@@ -35,12 +35,14 @@ export class AppComponent {
     let defaultProps1 = new UnitState();
     defaultProps1.unitWidth = 5;
     defaultProps1.modelCount = 10;
+    defaultProps1.generalsDiscipline = 0;
     defaultProps1.unitType = this.unitStats[0][0];
     defaultProps1.modifiers = new AttributeModifiers();
 
     let defaultProps2 = new UnitState();
     defaultProps2.unitWidth = 5;
     defaultProps2.modelCount = 10;
+    defaultProps2.generalsDiscipline = 0;
     defaultProps2.unitType = this.unitStats[0][0];
     defaultProps2.modifiers = new AttributeModifiers();
 
@@ -149,7 +151,7 @@ export class AppComponent {
       this.updateTurnData(result.turnResults);
     }
 
-    if (this.combatResults >= 100000) {
+    if (this.combatResults >= 10000) {
       clearInterval(this.intervalWorker);
     }
   }
@@ -191,12 +193,17 @@ export class AppComponent {
       turnData[i].averageKills[0] = self.updateAverage(turnData[i].averageKills[0], turnData[i].resultCount, turnResults[i].kills[0]);
       turnData[i].averageKills[1] = self.updateAverage(turnData[i].averageKills[1], turnData[i].resultCount, turnResults[i].kills[1]);
 
-
-      turnData[i].averageKills[0] = self.updateAverage(turnData[i].averageKills[0], turnData[i].resultCount, turnResults[i].kills[0]);
-      turnData[i].averageKills[1] = self.updateAverage(turnData[i].averageKills[1], turnData[i].resultCount, turnResults[i].kills[1]);
+      // turnData[i].averageKills[0] = self.updateAverage(turnData[i].averageKills[0], turnData[i].resultCount, turnResults[i].kills[0]);
+      // turnData[i].averageKills[1] = self.updateAverage(turnData[i].averageKills[1], turnData[i].resultCount, turnResults[i].kills[1]);
 
       turnData[i].averageHits[0] = self.updateAverage(turnData[i].averageHits[0], turnData[i].resultCount, turnResults[i].hits[0]);
       turnData[i].averageHits[1] = self.updateAverage(turnData[i].averageHits[1], turnData[i].resultCount, turnResults[i].hits[1]);
+
+      turnData[i].averageWounds[0] = self.updateAverage(turnData[i].averageWounds[0], turnData[i].resultCount, turnResults[i].wounds[0]);
+      turnData[i].averageWounds[1] = self.updateAverage(turnData[i].averageWounds[1], turnData[i].resultCount, turnResults[i].wounds[1]);
+
+      turnData[i].enemyAverageArmorSaves[0] = self.updateAverage(turnData[i].enemyAverageArmorSaves[0], turnData[i].resultCount, turnResults[i].armorSaves[0]);
+      turnData[i].enemyAverageArmorSaves[1] = self.updateAverage(turnData[i].enemyAverageArmorSaves[1], turnData[i].resultCount, turnResults[i].armorSaves[1]);
 
       turnData[i].resultCount++;
 

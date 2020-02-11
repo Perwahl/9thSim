@@ -26,7 +26,14 @@
 
 <div class="row">
     <div class="col-sm-2 pants text-center">
+       Average Hits: {{formatNumber(combatTurnData[selectedTurn].averageHits[0])}}
+       <br>  
+       Average Wounds: {{formatNumber(combatTurnData[selectedTurn].averageWounds[0])}}
+       <br>  
+       Average Armor Saves: {{formatNumber(combatTurnData[selectedTurn].enemyAverageArmorSaves[0])}}
+       <br>  
        Average Kills: {{formatNumber(combatTurnData[selectedTurn].averageKills[0])}}
+
         <br>       
     </div>
     <div class="col-sm-8 pants">

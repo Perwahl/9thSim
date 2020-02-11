@@ -3,28 +3,41 @@
     <div class="col-sm-12">
         <p *ngIf="!unitProps"><em>Loading...</em></p>
 
+        {{unitProps.unitType.name}}
         <table class='table' *ngIf="unitProps && unitIdentifier">
             <thead>
+                    
                 <tr>
-                    <th>Unit {{unitIdentifier}}</th>
+                    <!-- <th>Unit {{unitIdentifier}}</th> -->
                     <th>HP</th>
                     <th>Def</th>
                     <th>Res</th>
                     <th>Arm</th>
+                    <th>Dis</th>
+                    
+                </tr>                
+            </thead>
+            <tbody>
+                <tr>
+                    <!-- <td>{{ unitProps.unitType.name }}</td> -->
+                    <td>{{ unitProps.unitType.hp }}</td>
+                    <td>{{ unitProps.unitType.def }}</td>
+                    <td>{{ unitProps.unitType.res }}</td>
+                    <td>{{ unitProps.unitType.arm }}</td>                   
+                    <td>{{ unitProps.unitType.dis }}</td>                   
+                </tr>
+            </tbody>
+            <thead>
+                <tr>                   
                     <th>Att</th>
                     <th>Off</th>
                     <th>Str</th>
                     <th>AP</th>
                     <th>Agi</th>
-                </tr>
+                </tr>                
             </thead>
             <tbody>
-                <tr>
-                    <td>{{ unitProps.unitType.name }}</td>
-                    <td>{{ unitProps.unitType.hp }}</td>
-                    <td>{{ unitProps.unitType.def }}</td>
-                    <td>{{ unitProps.unitType.res }}</td>
-                    <td>{{ unitProps.unitType.arm }}</td>
+                <tr>                   
                     <td>{{ unitProps.unitType.att }}</td>
                     <td>{{ unitProps.unitType.off }}</td>
                     <td>{{ unitProps.unitType.str }}</td>
@@ -37,7 +50,7 @@
 </div>
 
 <div class="row" *ngIf="unitProps">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label class="d-block" for="inputEmail4">Selected Unit</label>
         <div ngbDropdown class="d-inline-block">
             <button class="btn btn-outline-primary" id="dropdownBasic1"
@@ -60,17 +73,23 @@
         </div>
     </div>
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <label class="d-block" for="inputUnitSize">Model Count</label>
         <input type="number" class="form-control" placeholder="size" aria-label="size" aria-describedby="basic-addon1"
             id="inputUnitSize" [(ngModel)]="unitProps.modelCount" (input)="unitChange()" min="1">
     </div>
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <label for="unit">Unit Width</label>
         <input type="number" class="form-control" placeholder="width" aria-label="Unit Size" aria-describedby=""
             [(ngModel)]="unitProps.unitWidth" (input)="unitChange()" min="1">
     </div>
+
+    <div class="form-group col-md-3">
+            <label for="unit">Generals Discipline</label>
+            <input type="number" class="form-control" placeholder="0" aria-label="Generals Discipline" aria-describedby=""
+                [(ngModel)]="unitProps.generalsDiscipline" (input)="unitChange()" min="0" max="10">
+        </div>
 </div>
 
 <div class="row justify-content-center align-items-center "  *ngIf="unitProps" >

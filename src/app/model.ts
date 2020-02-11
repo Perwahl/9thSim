@@ -5,6 +5,7 @@ export class UnitState {
     unitType: UnitStat;
     modelCount: number;
     unitWidth: number;
+    generalsDiscipline: number;
     remainingModels: number[];
     attributes: ModelAttribute[];
     modifiers: AttributeModifiers;
@@ -39,7 +40,7 @@ export class CombatTurnData {
     breakChance: number[];
 
     averageKills: number[];
-    averageKillsTotal: number[];
+    // averageKillsTotal: number[];
     averageHits: number[];
     averageWounds: number[];
     enemyAverageArmorSaves: number[];
@@ -53,7 +54,7 @@ export class CombatTurnData {
             this.averageHits = [0, 0],
             this.averageWounds = [0, 0],
             this.enemyAverageArmorSaves = [0, 0],
-            this.averageKillsTotal = [0, 0],
+            // this.averageKillsTotal = [0, 0],
             this.breakChance = [0, 0];
     }
 }

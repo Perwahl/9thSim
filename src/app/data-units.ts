@@ -41,7 +41,7 @@ const DreadElves: UnitStat[] = [
         baseSize: BaseSize.Infantry20x20,
 
         defaultAttributes: [ModelAttributeName.light_armor, ModelAttributeName.shield, ModelAttributeName.killer_instinct, ModelAttributeName.lightning_reflexes],
-        optionalAttributes: [ModelAttributeName.spear]
+        optionalAttributes: [ModelAttributeName.standard_bearer, ModelAttributeName.spear]
     },
 
     {
@@ -62,7 +62,7 @@ const DreadElves: UnitStat[] = [
         baseSize: BaseSize.Infantry20x20,
 
         defaultAttributes: [ModelAttributeName.light_armor, ModelAttributeName.paired_weapons, ModelAttributeName.lightning_reflexes, ModelAttributeName.killer_instinct, ModelAttributeName.poison_attacks],
-        optionalAttributes: []
+        optionalAttributes: [ModelAttributeName.standard_bearer]
     },   
     {
         name: "Tower Guard",
@@ -82,7 +82,7 @@ const DreadElves: UnitStat[] = [
         baseSize: BaseSize.Infantry20x20,
 
         defaultAttributes: [ModelAttributeName.heavy_armor, ModelAttributeName.killer_instinct, ModelAttributeName.lightning_reflexes, ModelAttributeName.halberd],
-        optionalAttributes: []
+        optionalAttributes: [ModelAttributeName.standard_bearer]
     }    
 ]
 
@@ -105,7 +105,7 @@ const OrcsAndGoblins: UnitStat[] = [
         baseSize: BaseSize.Infantry25x25,
 
         defaultAttributes: [ModelAttributeName.light_armor],
-        optionalAttributes: [ModelAttributeName.paired_weapons, ModelAttributeName.shield]
+        optionalAttributes: [ModelAttributeName.standard_bearer, ModelAttributeName.paired_weapons, ModelAttributeName.shield]
     },    
     {
         name: "Common Goblins",
@@ -125,7 +125,7 @@ const OrcsAndGoblins: UnitStat[] = [
         baseSize: BaseSize.Infantry20x20,
 
         defaultAttributes: [ModelAttributeName.light_armor],
-        optionalAttributes: [ModelAttributeName.spear, ModelAttributeName.shield]
+        optionalAttributes: [ModelAttributeName.standard_bearer, ModelAttributeName.spear, ModelAttributeName.shield]
     },
     {
         name: "Cave Goblins",
@@ -145,7 +145,7 @@ const OrcsAndGoblins: UnitStat[] = [
         baseSize: BaseSize.Infantry20x20,
 
         defaultAttributes: [],
-        optionalAttributes: [ModelAttributeName.spear, ModelAttributeName.shield]
+        optionalAttributes: [ModelAttributeName.standard_bearer, ModelAttributeName.spear, ModelAttributeName.shield, ModelAttributeName.nets]
     },
     {
         name: "Forest Goblins",
@@ -165,7 +165,7 @@ const OrcsAndGoblins: UnitStat[] = [
         baseSize: BaseSize.Infantry20x20,
 
         defaultAttributes: [ModelAttributeName.poison_attacks],
-        optionalAttributes: [ModelAttributeName.spear, ModelAttributeName.shield]
+        optionalAttributes: [ModelAttributeName.standard_bearer, ModelAttributeName.spear, ModelAttributeName.shield]
     },    
 ]
 
@@ -188,7 +188,7 @@ const Empire: UnitStat[] = [
         baseSize: BaseSize.Infantry20x20,
 
         defaultAttributes: [ModelAttributeName.light_armor, ModelAttributeName.shield],
-        optionalAttributes: [ModelAttributeName.halberd, ModelAttributeName.spear]
+        optionalAttributes: [ModelAttributeName.standard_bearer, ModelAttributeName.halberd, ModelAttributeName.spear]
     },
     {
         name: "Light Infantry",
@@ -208,7 +208,7 @@ const Empire: UnitStat[] = [
         baseSize: BaseSize.Infantry20x20,
 
         defaultAttributes: [ModelAttributeName.light_armor],
-        optionalAttributes: []
+        optionalAttributes: [ModelAttributeName.standard_bearer]
     },
     {
         name: "State Militia",
@@ -228,7 +228,7 @@ const Empire: UnitStat[] = [
         baseSize: BaseSize.Infantry20x20,
 
         defaultAttributes: [ModelAttributeName.paired_weapons],
-        optionalAttributes: []
+        optionalAttributes: [ModelAttributeName.standard_bearer]
     },
     {
         name: "Imperial Guard",
@@ -248,7 +248,7 @@ const Empire: UnitStat[] = [
         baseSize: BaseSize.Infantry20x20,
 
         defaultAttributes: [ModelAttributeName.plate_armor],
-        optionalAttributes: [ModelAttributeName.shield, ModelAttributeName.great_weapon]
+        optionalAttributes: [ModelAttributeName.standard_bearer, ModelAttributeName.shield, ModelAttributeName.great_weapon]
     },
 ]
 
